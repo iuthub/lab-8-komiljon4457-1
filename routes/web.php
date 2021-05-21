@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\PostsController;
+use App\Repositories\PostsRepository;
+use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +16,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [PostsController::class, "index"])->name("index");
+
+
+
+Route::post('/post/add', [PostsController::class, "add"])->name("add");
+Route::get('/delete/{id}', [PostsController::class, "delete"])->name("delete");
+Route::post('/edit', [PostsController::class, "edit"])->name("edit");
+
+Route::get('/admin/edit/{id}', [PostsController::class, "edit_view"])->name("admin/edit");
+
+Route::get('/admin/add', function () {
+    return view('admin.add');
 });
